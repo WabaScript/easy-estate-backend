@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  owner_id: 1
+  e_contact: MyString
+  p_contact: MyString
+  address: MyString
+  state: MyString
+  zipcode: 1
+  neighborhood: MyString
+  features: MyText
+  bed: 1
+  bath: 1
+  sqr_foot: 1
+  default_image: MyString
+  longitude: 1
+  latitude: 1
+  google_maps_id: 1
+
+two:
+  owner_id: 1
+  e_contact: MyString
+  p_contact: MyString
+  address: MyString
+  state: MyString
+  zipcode: 1
+  neighborhood: MyString
+  features: MyText
+  bed: 1
+  bath: 1
+  sqr_foot: 1
+  default_image: MyString
+  longitude: 1
+  latitude: 1
+  google_maps_id: 1
