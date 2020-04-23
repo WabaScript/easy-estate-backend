@@ -1,4 +1,7 @@
 class Comment < ApplicationRecord
-  belongs_to :user_id
-  belongs_to :listing_id
+  belongs_to :user
+  belongs_to :listing
+
+  validates :content, presence: true
+  validates :content, length: { maximum: 400 }
 end
