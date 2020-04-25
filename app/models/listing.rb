@@ -6,6 +6,8 @@ class Listing < ApplicationRecord
     
     has_many :comments
 
+    has_many :listing_image_bins
+
     has_many_attached :images
 
     validates :price, presence: true
