@@ -48,7 +48,7 @@ class Api::V1::ListingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def listing_params
-    params.require(:listing).permit( :owner_id, :p_contact, :address, :city, :state, :zipcode, :neighborhood, :price, :features, :bed, :bath, :sqr_foot, :default_image, :longitude, :latitude, :google_maps_id )
+    params.require(:listing).permit( :owner_id, :p_contact, :address, :city, :state, :zipcode, :neighborhood, :price, :features, :bed, :bath, :sqr_foot, :default_image, :longitude, :latitude, images: [] )
     end
 
 end
