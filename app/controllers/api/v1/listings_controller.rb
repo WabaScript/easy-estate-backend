@@ -3,13 +3,13 @@ class Api::V1::ListingsController < ApplicationController
 
     def index
         listings = Listing.all
-        render json: listings, include: :owner
+        render json: listings, include: {owner: {}, comments: {include: :user}, followers: {}, follow_listings: {only: :created_at}}
     end
 
     def show
         listing = Listing.find_by(id: params[:id])
         if listing
-            render json: listing, include: [:listing_image_bins, :owner, :comments, :followers, :follow_listings => {:only => :created_at}]
+            render json: listing, include: [:owner, :comments, :followers, :follow_listings => {:only => :created_at}]
         else
             render json: { message: "Listing not found!" }
         end
@@ -17,12 +17,12 @@ class Api::V1::ListingsController < ApplicationController
       
     # POST /listings
     def create
-        @listing = Listing.new(listing_params)
+        listing = Listing.new(listing_params)
     
-        if @listing.save
-        render json: @listing, status: :created, location: @listing
+        if listing.save
+        render json: listing, status: :created
         else
-        render json: @listing.errors, status: :unprocessable_entity
+        render json: listing.errors, status: :unprocessable_entity
         end
     end
     
@@ -49,7 +49,7 @@ class Api::V1::ListingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def listing_params
-    params.require(:listing).permit( :owner_id, :p_contact, :address, :city, :state, :zipcode, :neighborhood, :price, :features, :bed, :bath, :sqr_foot, :default_image, :longitude, :latitude, images: [] )
+    params.require(:listing).permit( :owner_id, :p_contact, :address, :city, :state, :zipcode, :neighborhood, :price, :features, :bed, :bath, :sqr_foot, :longitude, :latitude, :default_image => [])
     end
 
 end
