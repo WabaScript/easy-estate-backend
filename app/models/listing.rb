@@ -6,9 +6,11 @@ class Listing < ApplicationRecord
     
     has_many :comments
 
-    has_many :listing_image_bins
+    has_one :listing_image_bin
 
     has_many_attached :images
+
+    serialize :default_image, Array
 
     validates :price, presence: true
 end
