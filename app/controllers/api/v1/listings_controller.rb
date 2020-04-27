@@ -20,7 +20,7 @@ class Api::V1::ListingsController < ApplicationController
         listing = Listing.new(listing_params)
     
         if listing.save
-        render json: listing, status: :created
+        render json: listing, include: :owner, status: :created
         else
         render json: listing.errors, status: :unprocessable_entity
         end
