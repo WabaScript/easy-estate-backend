@@ -22,12 +22,12 @@ class Api::V1::FollowListingsController < ApplicationController
       
         # POST /follow_listings
         def create
-          @follow_listing = FollowListing.new(follow_listing_params)
+          follow_listing = FollowListing.new(follow_listing_params)
       
-          if @follow_listing.save
-            render json: @follow_listing, status: :created, location: @follow_listing
+          if follow_listing.save
+            render json: follow_listing, status: :created
           else
-            render json: @follow_listing.errors, status: :unprocessable_entity
+            render json: follow_listing.errors, status: :unprocessable_entity
           end
         end
       
