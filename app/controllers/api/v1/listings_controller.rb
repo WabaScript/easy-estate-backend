@@ -4,7 +4,8 @@ class Api::V1::ListingsController < ApplicationController
     def index
         listings = Listing.all
         render json: listings.sort {|a, b| b.updated_at <=> a.updated_at}, 
-            include: {owner: {}, comments: {include: :user}, followers: {}, follow_listings: {only: :created_at}}
+            include: {owner: {}, comments: {include: :user}, followers: {}, follow_listings: {only: :created_at}},
+            methods: :createdFormat
     end
 
     def show
