@@ -14,12 +14,12 @@ Comment.destroy_all
 # file = open(url)
 # user.image.attach(io: file, filename: "temp.#{file.content_type_parse.first.split("/").last}", content_type: file.content_type_parse.first)
 
-mikey = User.create!({first_name: "Mikey", last_name: "Smith", email: "mikeysmith@gmail.com", password: "123", pro_pic: ENV['Default1'], city: "New York", state: "NY", realtor: false})
-laura = User.create!({first_name: "Laura ", last_name: "Jones", email: "laurajones@gmail.com", password: "123", pro_pic: ENV['Default2'], city: "New York", state: "NY", realtor: true})
-diana = User.create!({first_name: "Diana ", last_name: "Johnson", email: "dianajohnson@gmail.com", password: "123", pro_pic: ENV['Default3'], city: "Los Angeles", state: "CA", realtor: false})
-gabi = User.create!({first_name: "Gabi ", last_name: "Cohen", email: "gabicohen@gmail.com", password: "123", pro_pic: ENV['Default4'], city: "Houston", state: "TX", realtor: false})
-cory = User.create!({first_name: "Cory ", last_name: "Stevens", email: "corystevens@gmail.com", password: "123", pro_pic: ENV['Default5'], city: "Trenton", state: "NJ", realtor: true})
-vin = User.create!({first_name: "Vin ", last_name: "Soprano", email: "vinsoprano@gmail.com", password: "123", pro_pic: ENV['Default6'], city: "Meadowlands", state: "NJ", realtor: false})
+mikey = User.create!({first_name: "LeBron", last_name: "James", email: "LebronJames@gmail.com", password: "123", pro_pic: ENV['Default1'], city: "Akron", state: "OH", realtor: false})
+laura = User.create!({first_name: "Yoan ", last_name: "Ante", email: "YoanAnte@gmail.com", password: "123", pro_pic: ENV['Default2'], city: "New York", state: "NY", realtor: true})
+diana = User.create!({first_name: "Selena ", last_name: "Gomez", email: "SelenaGomez@gmail.com", password: "123", pro_pic: ENV['Default3'], city: "Los Angeles", state: "CA", realtor: false})
+gabi = User.create!({first_name: "Post ", last_name: "Malone", email: "PostMalone@gmail.com", password: "123", pro_pic: ENV['Default4'], city: "Houston", state: "TX", realtor: false})
+cory = User.create!({first_name: "Kim ", last_name: "Kardashian", email: "KimKardashian@gmail.com", password: "123", pro_pic: ENV['Default5'], city: "Los Angeles", state: "CA", realtor: true})
+vin = User.create!({first_name: "Tony ", last_name: "Soprano", email: "Tonysoprano@gmail.com", password: "123", pro_pic: ENV['Default6'], city: "Meadowlands", state: "NJ", realtor: false})
 
 p "users seeded"
 
