@@ -6,7 +6,7 @@ class Api::V1::AuthController < ApplicationController
         if user && user.authenticate(params[:password])
           render json: user, include: [:comments, :listings, :followed_listings, :follow_listings => {:only => :created_at}]
         else
-          render json: {errors: "Seriously?"}
+          render json: {errors: "Seriously? Try again"}
         end
       end    
       
@@ -16,7 +16,7 @@ class Api::V1::AuthController < ApplicationController
         if user
            render json: user
          else 
-           render json: {errors: "Hey cool cat/kitten, are you sure that's you?"}
+           render json: {errors: "Woops, you don't have access to that!"}
          end    
     end
 end
