@@ -16,7 +16,7 @@ class Api::V1::AuthController < ApplicationController
         if user
            render json: user
          else 
-           render json: {errors: "Woops, you don't have access to that!"}
+           render json: {errors: "Woops, please login again!"}
          end    
     end
 end
