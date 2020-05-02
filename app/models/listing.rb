@@ -1,4 +1,6 @@
 class Listing < ApplicationRecord
+    include Rails.application.routes.url_helpers
+
     has_many :follow_listings, foreign_key: :listing_id
     has_many :followers, through: :follow_listings
 
@@ -16,5 +18,9 @@ class Listing < ApplicationRecord
     
     def createdFormat
         self.created_at.strftime("%b, %d @ %I:%M %P")
+    end
+
+    def uploaded_images
+        self.images.map { |i| polymorphic_url(i)}
     end
 end
