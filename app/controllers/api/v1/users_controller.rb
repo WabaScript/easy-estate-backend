@@ -3,12 +3,12 @@ class Api::V1::UsersController < ApplicationController
     
     def index
         users = User.all
-        render json: users
+        render json: users, methods: :uploaded_image
     end
         # GET /users/1
         def show
             if @user
-                render json: @user, include: [:comments, :listings, :followed_listings, :follow_listings => {:only => :created_at}],
+                render json: @user, include: {comments: {}, listings: {methods: :uploaded_images}, followed_listings: {methods: :uploaded_images}, follow_listings: {:only => :created_at}},
                 methods: :uploaded_image
             else
                 render json: { message: "User not found!" }

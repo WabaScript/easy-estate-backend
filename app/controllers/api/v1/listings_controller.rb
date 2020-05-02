@@ -4,15 +4,15 @@ class Api::V1::ListingsController < ApplicationController
     def index
         listings = Listing.all
         render json: listings.sort {|a, b| b.updated_at <=> a.updated_at}, 
-            include: {images: {}, owner: {}, comments: {include: :user}, followers: {}, follow_listings: {only: :created_at}},
+            include: {owner: {methods: :uploaded_image}, comments: {include: :user}, followers: {}, follow_listings: {only: :created_at}},
             methods: [:createdFormat, :uploaded_images]
     end
 
     def show
         listing = Listing.find_by(id: params[:id])
         if listing
-            render json: listing, include: [:owner, :comments, :followers, :follow_listings => {:only => :created_at}],
-            methods: [:createdFormat, :i_image]
+            render json: listing, include: {owner: {methods: :uploaded_image}, comments: {include: :user}, followers: {}, follow_listings: {:only => :created_at}},
+            methods: [:createdFormat, :uploaded_images]
         else
             render json: { message: "Listing not found!" }
         end
