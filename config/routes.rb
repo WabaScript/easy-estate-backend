@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post "/signup", to: "api/v1/users#create"
   post "/login", to: "api/v1/auth#login"  
   get "/auto_login", to: "api/v1/auth#auto_login"
-
+  # ActiveStorage
+  default_url_options :host => "localhost:3000"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

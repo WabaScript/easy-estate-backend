@@ -15,6 +15,7 @@ Comment.destroy_all
 # user.image.attach(io: file, filename: "temp.#{file.content_type_parse.first.split("/").last}", content_type: file.content_type_parse.first)
 
 mikey = User.create!({first_name: "LeBron", last_name: "James", email: "LebronJames@gmail.com", password: "123", pro_pic: ENV['Default1'], city: "Akron", state: "OH", realtor: false})
+mikey.image.attach(io: File.open('app/assets/images/default-avatar.png'), filename: 'default-avatar.png', content_type: 'image/png')
 laura = User.create!({first_name: "Yoan ", last_name: "Ante", email: "YoanAnte@gmail.com", password: "123", pro_pic: ENV['Default2'], city: "New York", state: "NY", realtor: true})
 diana = User.create!({first_name: "Selena ", last_name: "Gomez", email: "SelenaGomez@gmail.com", password: "123", pro_pic: ENV['Default3'], city: "Los Angeles", state: "CA", realtor: false})
 gabi = User.create!({first_name: "Post ", last_name: "Malone", email: "PostMalone@gmail.com", password: "123", pro_pic: ENV['Default4'], city: "Houston", state: "TX", realtor: false})
@@ -32,6 +33,12 @@ listing_six = Listing.create!({owner_id: vin.id, price: 1300000, p_contact: "666
 
 p "listings seeded"
 
+listing_one.images.attach(io: open(ENV['Aimg1']), filename: 'list1.png', content_type: 'image/png')
+listing_one.images.attach(io: open(ENV['Aimg2']), filename: 'list2.png', content_type: 'image/png')
+listing_one.images.attach(io: open(ENV['Aimg3']), filename: 'list3.png', content_type: 'image/png')
+
+p "listing images uploaded"
+
 FollowListing.create(follower_id: cory.id, listing_id: listing_four.id)
 FollowListing.create(follower_id: mikey.id, listing_id: listing_one.id)
 FollowListing.create(follower_id: mikey.id, listing_id: listing_three.id)
@@ -47,14 +54,5 @@ Comment.create(user_id: diana.id, listing_id: listing_six.id, content: 'nice pla
 Comment.create(user_id: mikey.id, listing_id: listing_one.id, content: 'thats a big one')
 Comment.create(user_id: diana.id, listing_id: listing_six, content: 'tool test')
 p "comments seeded"
-
-# ListingImageBin.create(listing_id: listing_one.id, image1: ENV['Aimg1'], image2: ENV['Aimg2'], image3: ENV['Aimg3'], image4: ENV['Aimg4'])
-# ListingImageBin.create(listing_id: listing_two.id, image1: ENV['Bimg1'], image2: ENV['Bimg2'], image3: ENV['Bimg3'])
-# ListingImageBin.create(listing_id: listing_three.id, image1: ENV['Cimg1'], image2: ENV['Cimg2'], image3: ENV['Cimg3'])
-# ListingImageBin.create(listing_id: listing_four.id, image1: ENV['Dimg1'], image2: ENV['Dimg2'], image3: ENV['Dimg3'])
-# ListingImageBin.create(listing_id: listing_five.id, image1: ENV['Eimg1'], image2: ENV['Eimg2'], image3: ENV['Eimg3'])
-# ListingImageBin.create(listing_id: listing_six.id, image1: ENV['Fimg1'], image2: ENV['Fimg2'], image3: ENV['Fimg3'])
-
-# p "image bins seeded"
 
 p "Seeds have been planted"
