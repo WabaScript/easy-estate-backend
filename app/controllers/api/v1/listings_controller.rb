@@ -1,4 +1,6 @@
+require 'open-uri'
 class Api::V1::ListingsController < ApplicationController
+    
     before_action :set_listings, only: [:update, :destroy]
 
     def index
@@ -21,9 +23,10 @@ class Api::V1::ListingsController < ApplicationController
     # POST /listings
     def create
         listing = Listing.new(listing_params)
-    
+        # params[:listing][:images].each {|image, index| listing.images.attach(io: URI.open(image), filename: `#{index}image.jpg`, content_type: 'image/jpeg')}
+        p listing
         if listing.save
-        render json: listing, include: :owner, status: :created
+        render json: listing, include: [:owner, :images], status: :created
         else
         render json: listing.errors, status: :unprocessable_entity
         end
@@ -32,7 +35,7 @@ class Api::V1::ListingsController < ApplicationController
     # PATCH/PUT /listings/1
     def update
         if @listing.update(listing_params)
-        @listing.images.attach(params[:images])
+        # @listing.images.attach(params[:images])
         render json: @listing
         else
         render json: @listing.errors, status: :unprocessable_entity
