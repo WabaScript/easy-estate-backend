@@ -21,6 +21,6 @@ class Listing < ApplicationRecord
     end
 
     def uploaded_images
-        self.images.map { |i| rails_blob_url(i)}
+        self.images.map { |i| url_for(i)}
     end
 end

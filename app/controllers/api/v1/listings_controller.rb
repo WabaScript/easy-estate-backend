@@ -25,9 +25,8 @@ class Api::V1::ListingsController < ApplicationController
         listing = Listing.new(listing_params)
         #  params[:listing][:images].each_with_index {|image, i| listing.images.attach(io: File.new(image.sub!("file:", ""), "w"), filename: index.to_s + '_image.jpg', content_type: "image/jpg", identify: false)}
         params[:listing][:images].each_with_index {|image, index| listing.images.attach(io: parse_image(image), filename: index.to_s + '_image.jpg')}
-        p listing
         if listing.save
-        render json: listing, include: [:owner, :images], status: :created
+        render json: listing, include: :owner, status: :created
         else
         render json: listing.errors, status: :unprocessable_entity
         end
@@ -57,7 +56,6 @@ class Api::V1::ListingsController < ApplicationController
     def parse_image(base64_image)
         decoded_image = Base64.decode64(base64_image)
         # file = File.open(Base64.decode64(base64_image), encoding: 'ASCII-8BIT')
-        p StringIO.new(decoded_image)
         return StringIO.new(decoded_image)
     end
     
