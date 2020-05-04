@@ -28,7 +28,7 @@ class Api::V1::ListingsController < ApplicationController
         if listing.save
         render json: listing, include: :owner, status: :created
         else
-        render json: listing.errors, status: :unprocessable_entity
+        render json: {errors: "Error"}, status: :unprocessable_entity
         end
     end
     
