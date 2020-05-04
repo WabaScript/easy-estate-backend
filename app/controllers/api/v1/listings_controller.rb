@@ -23,7 +23,8 @@ class Api::V1::ListingsController < ApplicationController
     # POST /listings
     def create
         listing = Listing.new(listing_params)
-        # params[:listing][:images].each {|image, index| listing.images.attach(io: URI.open(image), filename: `#{index}image.jpg`, content_type: 'image/jpeg')}
+        #  params[:listing][:images].each_with_index {|image, i| listing.images.attach(io: File.new(image.sub!("file:", ""), "w"), filename: index.to_s + '_image.jpg', content_type: "image/jpg", identify: false)}
+        params[:listing][:images].each_with_index {|image, index| listing.images.attach(io: parse_image(image), filename: index.to_s + '_image.jpg')}
         p listing
         if listing.save
         render json: listing, include: [:owner, :images], status: :created
@@ -53,9 +54,16 @@ class Api::V1::ListingsController < ApplicationController
     @listing = Listing.find_by(id: params[:id])
     end
 
+    def parse_image(base64_image)
+        decoded_image = Base64.decode64(base64_image)
+        # file = File.open(Base64.decode64(base64_image), encoding: 'ASCII-8BIT')
+        p StringIO.new(decoded_image)
+        return StringIO.new(decoded_image)
+    end
+    
     # Only allow a trusted parameter "white list" through.
     def listing_params
-    params.require(:listing).permit( :owner_id, :p_contact, :address, :city, :state, :zipcode, :neighborhood, :price, :features, :bed, :bath, :sqr_foot, :longitude, :latitude, :default_image => [], images: [])
+    params.require(:listing).permit( :owner_id, :p_contact, :address, :city, :state, :zipcode, :neighborhood, :price, :features, :bed, :bath, :sqr_foot, :longitude, :latitude, :default_image => [])
     end
 
 end

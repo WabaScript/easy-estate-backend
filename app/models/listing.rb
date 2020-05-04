@@ -21,6 +21,6 @@ class Listing < ApplicationRecord
     end
 
     def uploaded_images
-        self.images.map { |i| polymorphic_url(i)}
+        self.images.map { |i| rails_blob_url(i)}
     end
 end
