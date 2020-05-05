@@ -20,18 +20,4 @@ class User < ApplicationRecord
         polymorphic_url(self.image)
     end
 
-    # def i_image
-    #     return unless self.image.attached?
-    
-    #     self.image.blob.attributes
-    #           .slice('filename', 'byte_size')
-    #           .merge(url: image_url)
-    #           .tap { |attrs| attrs['name'] = attrs.delete('filename') }
-    #   end
-    
-    #   def image_url
-    #     url_for(self.image)
-    #   end
-
-
 end
