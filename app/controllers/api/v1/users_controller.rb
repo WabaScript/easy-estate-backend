@@ -8,7 +8,7 @@ class Api::V1::UsersController < ApplicationController
         # GET /users/1
         def show
             if @user
-                render json: @user, include: {comments: {}, listings: {methods: :uploaded_images}, followed_listings: {methods: :uploaded_images}, follow_listings: {:only => :created_at}},
+                render json: @user, include: {comments: {}, listings: {methods: :uploaded_images}, followed_listings: {methods: :uploaded_images}, follow_listings: {:except => :updated_at}},
                 methods: :uploaded_image
             else
                 render json: { message: "User not found!" }
