@@ -13,8 +13,6 @@ class Listing < ApplicationRecord
     has_many_attached :images
 
     serialize :default_image, Array
-
-    validates :price, presence: true
     
     def createdFormat
         self.created_at.strftime("%b, %d @ %I:%M %P")
