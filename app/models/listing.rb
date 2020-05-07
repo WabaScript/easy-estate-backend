@@ -15,7 +15,7 @@ class Listing < ApplicationRecord
     serialize :default_image, Array
     
     def createdFormat
-        self.created_at.strftime("%b, %d @ %I:%M %P")
+        self.created_at.strftime("%b, %-d @ %-I:%M%P")
     end
 
     def uploaded_images
