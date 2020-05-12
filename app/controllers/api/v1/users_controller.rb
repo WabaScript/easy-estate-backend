@@ -18,7 +18,7 @@ class Api::V1::UsersController < ApplicationController
     # POST /users
     def create
       user = User.new(user_params)
-  
+      user.attach(io: parse_image(params[:user][:image]), filename: index.to_s + '_image.jpg')
       if user.save
         render json: user, status: :created
       else
