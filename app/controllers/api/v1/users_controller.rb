@@ -20,7 +20,8 @@ class Api::V1::UsersController < ApplicationController
       user = User.new(user_params)
       user.image.attach(io: parse_image(params[:user][:image]), filename: rand(60).to_s + '_image.jpg')
       if user.save
-        render json: user, status: :created
+        render json: user, include: {comments: {}, listings: {methods: :uploaded_images}, followed_listings: {methods: :uploaded_images}, follow_listings: {:except => :updated_at}},
+        methods: :uploaded_image
       else
         render json: {errors: "Check your information and try again"}, status: :unprocessable_entity
       end

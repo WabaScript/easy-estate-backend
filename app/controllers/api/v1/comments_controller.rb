@@ -11,7 +11,7 @@ class Api::V1::CommentsController < ApplicationController
         # GET /comments/1
         def show
           comment = Comment.find_by(id: params[:id])
-          render json: comment, include: :user
+          render json: comment, include: {user: {methods: :uploaded_image}}
         end
       
         # POST /comments
@@ -19,7 +19,7 @@ class Api::V1::CommentsController < ApplicationController
           comment = Comment.new(comment_params)
       
           if comment.save
-            render json: comment, include: :user
+            render json: comment, include: {user: {methods: :uploaded_image}}
           else
             render json: comment.errors, status: :unprocessable_entity
           end
