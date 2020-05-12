@@ -48,7 +48,6 @@ class Api::V1::UsersController < ApplicationController
 
       def parse_image(base64_image)
         decoded_image = Base64.decode64(base64_image)
-        # file = File.open(Base64.decode64(base64_image), encoding: 'ASCII-8BIT')
         return StringIO.new(decoded_image)
       end
   
