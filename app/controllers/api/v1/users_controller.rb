@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-    
+  
     def index
         users = User.all
         render json: users, methods: :uploaded_image
@@ -56,7 +56,7 @@ class Api::V1::UsersController < ApplicationController
       def user_params
         params.require(:user).permit( :first_name, :last_name, :email, :password, :pro_pic, :city, :state, :realtor, :image )
       end
-  
 end
 
-           
+
+         
