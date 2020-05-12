@@ -18,7 +18,7 @@ class Api::V1::UsersController < ApplicationController
     # POST /users
     def create
       user = User.new(user_params)
-      user.attach(io: parse_image(params[:user][:image]), filename: index.to_s + '_image.jpg')
+      user.image.attach(io: parse_image(params[:user][:image]), filename: rand(60).to_s + '_image.jpg')
       if user.save
         render json: user, status: :created
       else
@@ -28,12 +28,21 @@ class Api::V1::UsersController < ApplicationController
   
     # PATCH/PUT /users/1
     def update
-      if UpdateUserService.new(@user, user_params).call
-        render json: @user
+      if @user.update(user_params)
+      render json: @user, include: {comments: {}, listings: {methods: :uploaded_images}, followed_listings: {methods: :uploaded_images}, follow_listings: {:except => :updated_at}},
+      methods: :uploaded_image
       else
-        render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
       end
     end
+
+    # def update
+    #   if UpdateUserService.new(@user, user_params).call
+    #     render json: @user
+    #   else
+    #     render json: @user.errors, status: :unprocessable_entity
+    #   end
+    # end
   
     # DELETE /users/1
     def destroy
