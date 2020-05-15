@@ -36,10 +36,10 @@ listing_seven = Listing.create!({owner_id: posty.id, price: 1500000, p_contact: 
 
 p "listings seeded"
 
-listing_one.images.attach(io: open(ENV['Aimg1']), filename: 'list1.png', content_type: 'image/png')
-listing_one.images.attach(io: open(ENV['Aimg2']), filename: 'list2.png', content_type: 'image/png')
-listing_one.images.attach(io: open(ENV['Aimg3']), filename: 'list3.png', content_type: 'image/png')
-listing_one.images.attach(io: open(ENV['Aimg4']), filename: 'list4.png', content_type: 'image/png')
+listing_one.images.attach(io: open("https://cdn-img-feed.streeteasy.com/nyc/image/84/227389584.jpg"), filename: 'list1.png', content_type: 'image/png')
+listing_one.images.attach(io: open("https://www.432parkavenue.com/assets/imgs/content/residences/14.jpg"), filename: 'list2.png', content_type: 'image/png')
+listing_one.images.attach(io: open("https://www.432parkavenue.com/assets/imgs/content/residences/2.jpg"), filename: 'list3.png', content_type: 'image/png')
+listing_one.images.attach(io: open("https://www.432parkavenue.com/assets/imgs/content/residences/20.jpg"), filename: 'list4.png', content_type: 'image/png')
 
 p "listing images uploaded"
 
