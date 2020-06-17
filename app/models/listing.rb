@@ -12,6 +12,8 @@ class Listing < ApplicationRecord
 
     has_many_attached :images
 
+    validates :address, presence: true
+
     serialize :default_image, Array
     
     def createdFormat
