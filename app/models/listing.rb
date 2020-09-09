@@ -12,10 +12,12 @@ class Listing < ApplicationRecord
 
     has_many_attached :images
 
-    validates :address, presence: true
+    validates :address, :price, presence: true
 
+    # Accept multiple image attachments
     serialize :default_image, Array
     
+    # Clean upload format, usually should keep backend in UTC and adjust on front end
     def createdFormat
         self.created_at.strftime("%b, %-d @ %-I:%M%P")
     end

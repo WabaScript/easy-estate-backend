@@ -1,8 +1,8 @@
 require 'open-uri'
 class Api::V1::ListingsController < ApplicationController
-    
     before_action :set_listings, only: [:update, :destroy]
 
+    # Sort listings by newest first
     def index
         listings = Listing.all
         render json: listings.sort {|a, b| b.updated_at <=> a.updated_at}, 
@@ -12,6 +12,7 @@ class Api::V1::ListingsController < ApplicationController
 
     def show
         listing = Listing.find_by(id: params[:id])
+
         if listing
             render json: listing, include: {owner: {methods: :uploaded_image}, comments: {include: :user}, followers: {}, follow_listings: {:only => :created_at}},
             methods: [:createdFormat, :uploaded_images]
@@ -24,20 +25,21 @@ class Api::V1::ListingsController < ApplicationController
     def create
         listing = Listing.new(listing_params)
         params[:listing][:images].each_with_index {|image, index| listing.images.attach(io: parse_image(image), filename: index.to_s + '_image.jpg')}
+        
         if listing.save
-        render json: listing, include: :owner, status: :created
+            render json: listing, include: :owner, status: :created
         else
-        render json: {errors: "Error"}, status: :unprocessable_entity
+            render json: {errors: "Error"}, status: :unprocessable_entity
         end
     end
     
     # PATCH/PUT /listings/1
     def update
         if @listing.update(listing_params)
-        # @listing.images.attach(params[:images])
-        render json: @listing
+            # @listing.images.attach(params[:images])
+            render json: @listing
         else
-        render json: @listing.errors, status: :unprocessable_entity
+            render json: @listing.errors, status: :unprocessable_entity
         end
     end
     
@@ -49,9 +51,10 @@ class Api::V1::ListingsController < ApplicationController
         private
     # Use callbacks to share common setup or constraints between actions.
     def set_listings
-    @listing = Listing.find_by(id: params[:id])
+        @listing = Listing.find_by(id: params[:id])
     end
 
+     # Parse a base64 file into readable format
     def parse_image(base64_image)
         decoded_image = Base64.decode64(base64_image)
         # file = File.open(Base64.decode64(base64_image), encoding: 'ASCII-8BIT')
@@ -60,7 +63,7 @@ class Api::V1::ListingsController < ApplicationController
     
     # Only allow a trusted parameter "white list" through.
     def listing_params
-    params.require(:listing).permit( :owner_id, :p_contact, :address, :city, :state, :zipcode, :neighborhood, :price, :features, :bed, :bath, :sqr_foot, :longitude, :latitude, :default_image => [])
+        params.require(:listing).permit( :owner_id, :p_contact, :address, :city, :state, :zipcode, :neighborhood, :price, :features, :bed, :bath, :sqr_foot, :longitude, :latitude, :default_image => [])
     end
 
 end
