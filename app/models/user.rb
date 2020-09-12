@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     include Rails.application.routes.url_helpers
-    
+
     has_many :follow_listings, foreign_key: :follower_id
     has_many :followed_listings, through: :follow_listings
 
